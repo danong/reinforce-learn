@@ -1,9 +1,9 @@
 import tensorflow as tf
 import numpy as np
 
-NUM_STATES = 10
-NUM_ACTIONS = 2
-GAMMA = 0.5
+NUM_STATES = 10 # see list of states below
+NUM_ACTIONS = 2 # left or right
+GAMMA = 0.5 # discount factor for importance of future rewards
 
 
 def hot_one_state(index)
@@ -15,7 +15,7 @@ def hot_one_state(index)
 states = [(x == 4) for x in range(NUM_STATES)]
 # [0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
-# tensor flow init
+# tensor flow init. states and targets will be feed data later.
 session = tf.Session()
 state = tf.placeholder(float, [None, NUM_STATES])
 targets = tf.placeholder(float, [None, NUM_ACTIONS])
@@ -31,6 +31,7 @@ train_operation = tf.train.AdamOptimizer(0.1).minimize(loss)
 
 session.run(tf.initialize_all_variables())
 
+# 50 training iterations
 for i in range(50)
     state_batch = []
     rewards_batch = []
