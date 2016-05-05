@@ -1,4 +1,13 @@
-def _create_network():
+# add this at the top of the file
+import tensorflow as tf
+
+    # Actions are down, stay still, up
+    ACTIONS_COUNT = 3
+    STATE_FRAMES = 4
+    RESIZED_SCREEN_X, RESIZED_SCREEN_Y = 80, 80
+    
+    @staticmethod
+    def _create_network():
         # network weights
         convolution_weights_1 = tf.Variable(tf.truncated_normal([8, 8, DeepQAgent.STATE_FRAMES, 32], stddev=0.01))
         convolution_bias_1 = tf.Variable(tf.constant(0.01, shape=[32]))
