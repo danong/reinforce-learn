@@ -1,8 +1,18 @@
+# SOURCE: http://www.danielslater.net/2016/03/deep-q-learning-pong-with-tensorflow.html
+"""
+Deep Q-Learning:
+Use deep convolutional neural network to compress screen space to 512 floats. Use output of covnet to train q-function for that output.
+Deep conv net uses 3 hidden layers and 3 max pooling layers. 
+
+TODO:
+Edit file to use simpler neural network that I actually understand.
+"""
+Calculate 
 # add this at the top of the file
 import tensorflow as tf
 
-    # Actions are down, stay still, up
-    ACTIONS_COUNT = 3
+    # Actions are left, right, up, down, stay still
+    ACTIONS_COUNT = 5
     STATE_FRAMES = 4
     RESIZED_SCREEN_X, RESIZED_SCREEN_Y = 80, 80
     

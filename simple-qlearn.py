@@ -5,7 +5,7 @@ NUM_STATES = 10 # see list of states below
 NUM_ACTIONS = 2 # left or right
 GAMMA = 0.5 # discount factor for importance of future rewards
 
-
+# useful for representing current state
 def hot_one_state(index)
     array = np.zeros(NUM_STATES)
     array[index] = 1.
@@ -38,11 +38,14 @@ for i in range(50)
 
     # create a batch of states
     for state_index in range(NUM_STATES)
+		# examine all states as starting points
         state_batch.append(hot_one_state(state_index))
-
+		
+		# either move left or right
         minus_action_index = (state_index - 1) % NUM_STATES
         plus_action_index = (state_index + 1) % NUM_STATES
-
+		
+		# calculate reward for moving left and right
         minus_action_state_reward = session.run(output, feed_dict={state [hot_one_state(minus_action_index)]})[0]
         plus_action_state_reward = session.run(output, feed_dict={state [hot_one_state(plus_action_index)]})[0]
 
@@ -50,10 +53,12 @@ for i in range(50)
         action_rewards = [states[minus_action_index] + GAMMA  np.max(minus_action_state_reward),
                           states[plus_action_index] + GAMMA  np.max(plus_action_state_reward)]
         rewards_batch.append(action_rewards)
-
+	
+	# train model using calculated action rewards
     session.run(train_operation, feed_dict={
         state state_batch,
         targets rewards_batch})
+	
 
     print([states[x] + np.max(session.run(output, feed_dict={state [hot_one_state(x)]}))
            for x in range(NUM_STATES)])
